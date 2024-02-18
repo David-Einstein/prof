@@ -1,0 +1,11 @@
+create table payement(
+annee smallint not null,
+mois smallint not null,
+jour smallint not null,
+m_percu int not null,
+idsal varchar(20) not null,
+primary key(annee,mois,jour,idsal))
+engine=innodb;
+
+alter table payement add constraint fk1 foreign key(idsal)
+                    references salaires(matricule);

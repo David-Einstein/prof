@@ -1,0 +1,24 @@
+/* Created by TopStyle Trial - www.topstyle4.com */
+body{
+	background-color: aqua;
+}
+label{
+	display: block;
+	padding-top: 10px;
+	width: 100px;
+	/*margin-right: 100px;*/
+}
+input{
+/*	background-color: #000033;*/
+	padding: 3px 5px;
+	margin-top:15px; 
+	/*color:#fff;*/
+}
+.tab th,td{
+background-color: white;
+padding: 5px;
+	
+}
+.tab{
+border-collapse: collapse;	
+}

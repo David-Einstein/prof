@@ -1,0 +1,30 @@
+/* Created by TopStyle Trial - www.topstyle4.com */
+
+body{
+	background-color: aqua;
+}
+label{
+	/*display: block;*/
+	margin-top: 10px;
+}
+input{
+/*	background-color: #000033;*/
+	padding: 3px 5px;
+	margin-top:15px; 
+	/*color:#fff;*/
+}
+.tab th,td{
+background-color: white;
+padding: 5px;
+	
+}
+.tab{
+border-collapse: collapse;	
+}
+select{
+	margin-top:15px; 
+}
+
+/*application réalisée du 03 au 07 Mai 2020 à N'djaména au Tchad par
+Targoto Christian
+Contact: 23560316682 / ct@chrislink.net */

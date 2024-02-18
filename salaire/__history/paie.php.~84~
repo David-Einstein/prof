@@ -1,0 +1,120 @@
+<?php 
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "dbpaie";
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+die("Connection failed: " . mysqli_connect_error());
+} 
+?>
+<?php 
+$mat=@$_POST['matricule'];
+$mat=htmlspecialchars($mat);
+$an=@$_POST['annee'];
+$mois=@$_POST['mois'];
+$jour=@$_POST['jour'];
+$mp=@$_POST['mp'];
+
+$mess='';
+//inserer
+if(isset($_POST['bajout'])&&!empty($mat)){
+$sql=mysqli_query($conn,"insert into payement(idsal,annee,mois,jour,m_percu) 
+values('$mat','$an','$mois','$jour','$mp')");
+if($sql){
+$mess="<br>Insertion réussie !";
+
+}
+else
+$mess="<br>Erreur d'insertion !";
+}
+?>
+<?php 
+//modifier
+if(isset($_POST['bmodif'])&&!empty($mat)){
+$sql=mysqli_query($conn,"update payement set m_percu='$mp' where idsal='$mat'
+ and annee='$an' and mois='$mois' and jour='$jour'" );
+if($sql){
+$mess="<br>Modification réussie !";
+}
+else
+$mess="<br>Impossible de modifier !";
+}
+?>
+<?php 
+//supprimer
+if(isset($_POST['bsupp'])&&!empty($mat)){
+$sql=mysqli_query($conn,"delete from payement where idsal='$mat' and annee='$an' and mois='$mois' and jour='$jour'");
+if($sql){
+$mess="<br>Suppréssion réussie !";
+}
+else
+$mess="<br>Impossible de supprimer !";
+}
+
+?>
+<!-- Created by TopStyle Trial - www.topstyle4.com -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf8">
+</head>
+
+<body>
+	<div align="center">
+	<a href="index.php">ACCUEIL</a><br>
+		<a href="listepaie.php">LISTE PAYEMENT</a><br><br>
+	<form action="" method="POST">
+	<label>Matricule :</label>
+	<input type="text" name="matricule" value="<?php print"$mat";?>"><br>
+	<label>Année :</label>
+	<input type="number" name="annee" value="2020" min="1900"><br>
+		<label >Mois :</label>
+	<select name="mois" id="mois"  >
+         <option  value="1">Janvier</option>
+        <option  value="2">Février</option>
+        <option  value="3">Mars</option>
+        <option  value="4">Avril</option>
+        <option  value="5">Mai</option>
+        <option  value="6">Juin</option>
+        <option  value="7">Juillet</option>
+        <option  value="8">Aout</option>
+        <option  value="9">Septembre</option>
+        <option  value="10">Octobre</option>
+        <option  value="11">Novembre</option>
+        <option  value="12">Décembre</option>
+     </select><br >
+     <label >Jour :</label>
+		<input type="number" name="jour" value="<?php print"$jour";?>" max="31" min="1"><br>
+	<label>Montant perçu :</label>
+	<input type="number" name="mp" value="<?php print"$mp";?>" min="0"><br>
+	<input type="submit" name="bajout" value="Ajouter">
+	<input type="submit" name="bmodif" value="Modifier">
+	<input type="submit" name="bsupp" value="Supprimer">
+	<label ><?php echo "$mess";?></label>
+	</form>
+	<?php 
+	print'<h2>Payements effectués :</h2>';
+	//l'affichage d'un vol disparait de la liste un jour après la date de départ 
+	     $rq=mysqli_query($conn,"select * from payement order by matricule,annee,mois,jour");
+	print'<table border="1" class="tab"><tr><th>Matricule</th><th>Année</th><th>Mois</th>
+	<th>Jour</th><th>Montant (FCFA)</th></tr>';
+	     while($rst=mysqli_fetch_assoc($rq)){
+	     
+	       
+	         print"<tr>";
+	         echo"<td>".$rst['idsal']."</td>";
+	         echo"<td>".$rst['annee']."</td>";
+	         echo"<td>".$rst['mois']."</td>";
+	         echo"<td>".$rst['jour']."</td>";
+	         echo"<td>".$rst['m_percu']."</td>";
+	         print"</tr>";   
+	     }
+	   print'</table>';
+	?>
+	</div>
+</body>
+</html>
